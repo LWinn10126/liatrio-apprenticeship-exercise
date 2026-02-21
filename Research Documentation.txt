@@ -1,0 +1,13 @@
+Logan Winn
+Liatrio Apprenticeship Exercise Interview
+
+Getting Git and Github repo set up
+1.	Installing Git
+	a.	In Powershell
+		i.	git –version
+		ii.	had to install git
+		iii.	Git - First-Time Git Setup
+	b.	Make local project folder
+		i.	Run git init
+		ii.	
+

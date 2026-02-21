@@ -1,0 +1,96 @@
+Copy of Liatrio Apprenticeship Interview Exercise
+Overview
+Welcome! The goal of this interview is to get an idea of how well you will fit into our practice, and if the way that we work is the right fit for you.
+First, let’s be clear — a successful interview does NOT mean that you finish the exercise without help, or even necessarily finish it. We are going to see how you identify and solve problems, how you communicate, how and where you ask for help, and finally how you demonstrate what you did.
+Some of the items of the interview are going to be purposely vague for two reasons:
+1.	To see how well you can figure things out on your own
+2.	To see how you search, find, and ask for help
+A perfect way to ask for help would be something like:
+“I am struggling with doing XXX. I found this issue (YYY), and researched a bit about ZZZ. Can you point me in the right direction?”
+Whenever possible include error messages or screenshots to give context to what you are asking about.
+You are free to use any information needed to work this out. We all use Google, Stack Overflow, and our friend sitting right next to us every day. It is critically important that you understand what you are using and doing. We will expect to hear about how you accomplished these tasks and what resources you needed at demonstration time.
+If you are stuck, or if something is unclear, communicate this in the Slack channel.
+Remember, at Liatrio, communication, collaboration, transparency, and sharing are key pillars of our work culture.
+________________________________________
+Interview Exercise
+For this interview, we are going to ask you to create a simple web application which exposes a HTTP API endpoint and use a CI/CD pipeline to containerize and deploy it to a cloud platform.
+We have this exercise broken down into general sections, and while there are many ways to accomplish each, we note some tools you should use. It is possible that you may have experience using other tools, but you should stick to our suggestions when and where possible.
+As noted, communication is key, so please ask questions and provide updates as you make progress.
+________________________________________
+GitHub Repository
+•	Create a public GitHub repository to store the code and files for your application. You’ll also be using this repository to host a GitHub Actions workflow later.
+•	Share this repository in Slack and push up changes frequently so we can keep track of your progress.
+________________________________________
+Golang Application
+•	Install Golang and use Fiber to build a simple single-endpoint web application that returns the following JSON object.
+•	The blank space should be your name, and the timestamp should be dynamically generated.
+•	The API should return a minified JSON object (the example below is formatted for readability).
+{
+  "message": "My name is ___",
+  "timestamp": 12312344
+}
+________________________________________
+Docker Containerization
+•	Write a Dockerfile that will build your application.
+•	Make sure the Dockerfile is hosted in your repository.
+________________________________________
+GitHub Actions
+Create GitHub Actions Workflow(s) that:
+•	Build your application’s Docker image
+•	Verify the application functionality using Liatrio’s GitHub apprentice-action
+•	Push your image to an OCI-compliant repository (Docker Hub as an example)
+•	Uniquely version your image for each successful workflow run
+________________________________________
+Cloud Deployment
+Deploy your app to a cloud platform of your choice:
+•	AWS
+•	Google Cloud Platform
+•	Azure
+Use the image from Docker Hub.
+Note: Many cloud platforms have student credits for educational purposes. Use the free credits so that you aren’t paying to deploy your application. Also, you only have to run your application when testing or demoing.
+________________________________________
+Deployment Workflow (Extra Credit)
+•	Add a GitHub Workflow which automatically deploys your versioned application to the cloud platform when changes are made to the main branch of your repository.
+•	Ensure you are deploying your versioned image from your OCI repository.
+•	Add a field to the JSON output of your application and verify the change is deployed.
+________________________________________
+Wrap Up, Demo, Follow-Up
+Once you have completed all of the items above, please communicate with us in Slack.
+We will want you to conduct a demonstration where you will present:
+•	What you did
+•	What you learned
+•	What you may have struggled with
+•	Any additional ideas or improvements you identified
+The demo will be given over a video conference platform with a screen share for our folks who cannot make it to the Chico office. You will be giving this demo in the Chico office unless you cannot present in person.
+One of our consultants will meet with you prior to the demo to go over expectations and help you prepare.
+________________________________________
+Demo Fundamentals
+Below is a write-up from our employee handbook of how we want Liatrio consultants/engineers to perform a demo. Please use this as a framework.
+________________________________________
+Liatrio Demo: Expectations
+Demos are a very essential and critical part of the Liatrio way. We firmly believe that at any given time, all of the work should be in a working state (see definition below) and that you should be confident to conduct a demo.
+Liatrio teams normally conduct demos frequently to their respective team/account members, ranging from quick 5-minute demos to 15-minute maximum sessions.
+At Liatrio, “working state” means the work is at a stage where it’s functional and can be shown off or tested. It's not about being finished or perfect; it's about progress that can be demonstrated. The point is to ensure continuous progress and the ability to gather feedback early and often.
+________________________________________
+What We Mean by “Clean Slate”
+When we say “clean slate,” we mean starting your demo in a way that clearly shows how the solution comes together from a believable starting point. This doesn’t necessarily mean an empty repository. It could mean starting with code not yet deployed, or showing a fresh deployment of a change. Think of this as presenting to a potential client — transparency and flow matter. Avoid fumbling through basics; automate repetitive steps and focus on demonstrating the overall solution and your design decisions.
+________________________________________
+Demo Prep
+Prepping for a demo is a very essential trait, and it's never a good idea to come to a demo without having a prep session prior. This is not intensive but definitely deliberate. Sometimes prep can be as little as five minutes, but it sets the tone for what you are about to present.
+1.	Be ready to share your screen. Log into the meeting a few minutes early. Close non-essential applications and notifications. Have a mental checklist of your demo flow.
+2.	Write a few bullet points outlining what you will demo. Not providing context to your audience is a sure way to make the demo ineffective.
+3.	Have a way to take notes.
+4.	Plan for all windows/screens you will need. Doing something others cannot see is a waste of time.
+5.	Plan to show everything. The goal is to show how it’s done — not just what the end product is.
+________________________________________
+The Actual Demo
+1.	Start with a concise introduction:
+
+”Hi, my demo today will showcase how to stand up a Golang application in a Docker container and both build and deploy the application using GitHub Actions.”
+2.	Share your screen with something outlining the flow (task list, Trello board, notes, etc.).
+3.	Start from your chosen clean slate and walk through the process step-by-step.
+4.	Cater to the lowest possible denominator in your audience — non-technical folks should be able to follow the logic.
+5.	Speak slowly and clearly. Avoid jumping around the screen.
+6.	Focus on clarity over technical mastery.
+7.	Manage your time well. For a 15-minute demo: 2 minutes introduction, 8 minutes demo, 5 minutes questions.
+Time management is a critical aspect of good meeting etiquette.
