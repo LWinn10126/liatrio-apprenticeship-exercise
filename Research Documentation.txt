@@ -9,5 +9,9 @@ Getting Git and Github repo set up
 		iii.	Git - First-Time Git Setup
 	b.	Make local project folder
 		i.	Run git init
-		ii.	
+		ii.	learn git commands
+			git add . // this will add everything in the folder to the "staging area"
+			git commit -m "Describe what we did in this commit" // this command takes a snapshot of whats in the "staging area" commits are local so nothing is on GitHub yet
+			git push -u origin main // this will push the commit to GitHub, origin is the remote repository name, main is the branch name, and -u sets upstream tracking
+			git push // after doing the first push with -u origin main you can use just git push to push new commits to the repo as git remembers the previous commands.  
 
