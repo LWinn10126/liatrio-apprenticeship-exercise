@@ -15,3 +15,33 @@ Getting Git and Github repo set up
 			git push -u origin main // this will push the commit to GitHub, origin is the remote repository name, main is the branch name, and -u sets upstream tracking
 			git push // after doing the first push with -u origin main you can use just git push to push new commits to the repo as git remembers the previous commands.  
 
+
+
+GoLang Setup
+https://www.youtube.com/watch?v=DFiXJKIF2ss
+Followed tutorial to go through setting up Golang
+
+also ran the command go mod init liatrio-api, this created a module named liatrio-api
+
+to run go within visual studio code you use
+	go run (file name)
+	or
+	go run . // this runs the main function in a directory.
+
+Fiber setup
+https://docs.gofiber.io/
+you have to run
+go get -u github.com/gofiber/fiber/v3 to install fiber
+once fiber is installed within main.go you have to import "github.com/gofiber/fiber/v3" in order to use it
+
+Fiber is a web framework for Go that is inspired by Express.js, it focuses on extreme performance and low memory footprint.  Built ontop of Fasthttp.
+
+Helpful tutorial: https://dev.to/percoguru/getting-started-with-apis-in-golang-feat-fiber-and-gorm-2n34
+		https://betterstack.com/community/guides/scaling-go/json-in-go/
+		https://blog.logrocket.com/using-json-go-guide/
+		https://docs.gofiber.io/
+Need to learn JSON and how it applies to Go and Fiber
+
+
+
+
