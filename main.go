@@ -12,7 +12,7 @@ func main() {
 	//data := { "message": "Logan Winn","timestamp": ""}
 
 	app.Get("/", func(c fiber.Ctx) error { // Define a route for the root URL  c fiber.Ctx is the request context for headers, parameters, etc.
-		err := c.JSON(fiber.Map{"message": "My name is Logan Winn", "timestamp": time.Now().Format("2017-09-07 17:06:06")}) // Send a simple string response
+		err := c.JSON(fiber.Map{"message": "My name is Logan Winn", "timestamp": time.Now().Format("2006-01-02 15:04:05")}) // Send a simple string response
 		return err
 	})
 
