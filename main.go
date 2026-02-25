@@ -16,5 +16,5 @@ func main() {
 		return err
 	})
 
-	app.Listen(":3000") // Start the server on port 3000
+	app.Listen(":8080") // Start the server on port 8080
 }

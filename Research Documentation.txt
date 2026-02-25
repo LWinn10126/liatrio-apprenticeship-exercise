@@ -44,4 +44,39 @@ Need to learn JSON and how it applies to Go and Fiber
 
 
 
+Dockerfile
+https://docs.docker.com/get-started/docker-concepts/building-images/multi-stage-builds/
+Commands to know
+docker build -t liatrio-api .  // this will build the liatrio-api container
+docker run --rm -p 8080:8080 liatrio-api  //this will run the docker container (--rm will delete when closed, don't always need it unless you don't want extra footprint) on port 8080
+
+our docker file is a multi layer file.  It uses one layer to build the container and the other to run it
+FROM golang... this line pulls official Go image from Docker Hub
+AS builder simply names the stage builder
+
+WORKDIR /app sets the working directory into the container  same as cd /app
+
+COPY go.mod go.sum ./ will copy these.  Only want these so we are faster for builds
+RUN go mod download  Downlaods all dependencies listed in go.mod
+
+COPY . .  this copies everything from project directory into /app. (main.go and everthing else)
+
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server . 
+	CGO_ENABLED=0 disables C library usage
+	GOOS=linux will compile this for linux (Docker containers run linux)
+	GOARCH=amd64 compile for 64 bit architecture
+	go build -o server .  build app with binary named server
+
+FROM scratch this gets rid of any extra fluff so we are very fast, it makes an empty container image
+COPY --from=builder /app/server /server
+	This goes to builder stage, copys the file /app/server and puts it in /server
+	so now our final image contains only /server
+
+EXPOSE 8080
+	this just says we expect to server traffic on port 8080
+
+CMD ["/server"]
+	this is similar to ./server and it just runs the binary
+
+
 
