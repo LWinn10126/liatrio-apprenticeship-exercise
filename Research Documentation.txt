@@ -80,3 +80,7 @@ CMD ["/server"]
 
 
 
+Github workflow
+https://docs.github.com/en/actions/tutorials/create-an-example-workflow
+
+workflow uses YAML synatx
