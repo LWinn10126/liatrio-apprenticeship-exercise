@@ -19,7 +19,7 @@ jobs:
 
       - name: Run container on port 80
         run: |
-          docker run -d --name app -p 80:3000 app:${{ github.sha }}
+          docker run -d --name app -p 80:8080 app:${{ github.sha }}
 
       - name: Verify with apprentice-action
         uses: liatrio/github-actions/apprentice-action@master
