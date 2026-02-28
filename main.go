@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"time"
 
 	"github.com/gofiber/fiber/v3"
@@ -16,5 +17,11 @@ func main() {
 		return err
 	})
 
-	app.Listen(":8080") // Start the server on port 8080
+	// Get port from environment (Cloud Run sets this automatically)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback for local development
+	}
+
+	app.Listen(":" + port)
 }
