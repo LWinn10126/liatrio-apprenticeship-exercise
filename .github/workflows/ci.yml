@@ -22,7 +22,7 @@ jobs:
           docker run -d --name app -p 80:8080 app:${{ github.sha }}
 
       - name: Verify with apprentice-action
-        uses: liatrio/github-actions/apprentice-action@v1.0.0
+        uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
 
       - name: Log in to Docker Hub
         if: github.ref == 'refs/heads/main'
