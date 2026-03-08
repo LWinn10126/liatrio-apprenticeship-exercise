@@ -82,5 +82,11 @@ CMD ["/server"]
 
 Github workflow
 https://docs.github.com/en/actions/tutorials/create-an-example-workflow
+https://docs.github.com/en/actions/concepts/workflows-and-actions/workflows
+https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow
+
 
 workflow uses YAML synatx
+
+clout running information
+https://docs.cloud.google.com/run/docs/deploying

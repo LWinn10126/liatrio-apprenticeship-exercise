@@ -1,9 +1,15 @@
+# CI = Continuous Integration CD = Continuous Deployment
 name: CI/CD Pipeline
 
+# This workflow builds a Docker image, runs it, verifies it with an apprentice-action, 
+# pushes it to Docker Hub, and deploys it to Google Cloud Run when changes are pushed to the main branch.
 on:
   push:
     branches: [ main ]
 
+
+# jobs define a sequence of steps to be executed. In this workflow, we have two jobs: 'ci' for continuous integration and 'deploy' for continuous deployment.
+# The 'deploy' job depends on the successful completion of the 'ci' job.
 jobs:
   ci:
     runs-on: ubuntu-latest
@@ -15,12 +21,17 @@ jobs:
       - name: Build Docker image
         run: docker build -t app:${{ github.sha }} .
 
+        # docker run command is used to start a container from the built image. The -d flag runs the container in detached mode detached mode means it runs in the background, allowing the workflow to continue with the next steps without waiting for the container to stop.
+        #--name app gives it a name for easier reference, and -p 80:8080 maps port 80 on the host to port 8080 in the container, allowing us to access the application through port 80.
       - name: Run container on port 80
         run: docker run -d --name app -p 80:8080 app:${{ github.sha }}
 
+        # The apprentice-action is used to verify the running container. It checks if the application is responding correctly on the expected port and endpoint.
+        # we also use the specific commit hash (github.sha) to tag the Docker image, ensuring that we can trace back the image to the exact code that was built and tested.
       - name: Verify with apprentice-action
         uses: liatrio/github-actions/apprentice-action@0b41561cca6822cc8d880fe0e49e7807a41fdf91
 
+        # the if condition ensures that the login and push steps only execute when changes are pushed to the main branch, preventing unintended pushes from feature branches or pull requests.
       - name: Log in to Docker Hub
         if: github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
@@ -28,6 +39,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+        # After successfully building and verifying the Docker image, we tag it with the commit hash and push it to Docker Hub. 
+        # This allows us to maintain a versioned history of our images, making it easier to track changes and roll back if necessary.
       - name: Push image to Docker Hub
         if: github.ref == 'refs/heads/main'
         run: |
@@ -35,11 +48,14 @@ jobs:
           docker tag app:${{ github.sha }} $IMAGE:${{ github.sha }}
           docker push $IMAGE:${{ github.sha }}
 
+  # The deploy job is responsible for deploying the Docker image to Google Cloud Run.
+  # It only runs if the ci job completes successfully and if the changes are pushed to the main branch.
   deploy:
     needs: ci
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
+    # uses: google-github-actions/auth@v2 to authenticate to Google Cloud using credentials stored in GitHub Secrets.
     steps:
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
@@ -49,6 +65,7 @@ jobs:
       - name: Set up gcloud
         uses: google-github-actions/setup-gcloud@v2
 
+      # After authentication, the workflow deploys the Docker image to Google Cloud Run. It specifies the image to deploy, the region, and other deployment options.
       - name: Deploy versioned image to Cloud Run
         run: |
           IMAGE=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/liatrio-api-hub:${{ github.sha }}
