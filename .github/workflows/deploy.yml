@@ -1,32 +1,32 @@
 name: Deploy to Cloud Run
 
 on:
-    workflow_run:
-        workflows: ["CI Pipeline"]
-        types:
-            - completed
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types: [completed]
+    branches: [main]
 
 jobs:
-    deploy:
-        if: ${{ github.event.workflow_run.conclusion == 'success' }}
-        runs-on: ubuntu-latest
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Authenticate to Google Cloud
-              uses: google-github-actions/auth@v2
-              with:
-                credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+    steps:
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-            - name: Set up gcloud
-              uses: google-github-actions/setup-gcloud@v2
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
 
-            - name: Deploy versioned image to Cloud Run
-              run: |
-                    IMAGE=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/liatrio-api-hub:${{ github.sha }}
+      - name: Deploy versioned image to Cloud Run
+        run: |
+          IMAGE=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/liatrio-api-hub:${{ github.event.workflow_run.head_sha }}
 
-                    gcloud run deploy liatrio-api-hub \
-                        --image $IMAGE \
-                        --region us-west1 \
-                        --platform managed \
-                        --allow-unauthenticated
-                        --set-env-vars APP_VERSION=${{ github.event.workflow_run.head_sha }}
+          gcloud run deploy liatrio-api-hub \
+            --image "$IMAGE" \
+            --region us-west1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-env-vars APP_VERSION=${{ github.event.workflow_run.head_sha }}
