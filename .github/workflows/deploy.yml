@@ -1,14 +1,13 @@
 name: Deploy to Cloud Run
 
 on:
-  workflow_run:
-    workflows: ["CI Pipeline"]
-    types: [completed]
-    branches: [main]
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -22,11 +21,11 @@ jobs:
 
       - name: Deploy versioned image to Cloud Run
         run: |
-          IMAGE=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/liatrio-api-hub:${{ github.event.workflow_run.head_sha }}
+          IMAGE=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/liatrio-api-hub:${{ github.sha }}
 
           gcloud run deploy liatrio-api-hub \
             --image "$IMAGE" \
             --region us-west1 \
             --platform managed \
             --allow-unauthenticated \
-            --set-env-vars APP_VERSION=${{ github.event.workflow_run.head_sha }}
+            --set-env-vars APP_VERSION=${{ github.sha}}
