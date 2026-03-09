@@ -7,7 +7,6 @@ on:
   push:
     branches: [ main ]
 
-
 # jobs define a sequence of steps to be executed. In this workflow, we have two jobs: 'ci' for continuous integration and 'deploy' for continuous deployment.
 # The 'deploy' job depends on the successful completion of the 'ci' job.
 jobs:

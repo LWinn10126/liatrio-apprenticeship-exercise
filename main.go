@@ -14,7 +14,7 @@ func main() {
 		version := os.Getenv("APP_VERSION") // Get the APP_VERSION environment variable
 
 		// Send a simple string response with time allocation and version
-		return c.JSON(fiber.Map{"message": "My name is Logan Winn", "timestamp": time.Now().UnixMilli(), "version": version})
+		return c.JSON(fiber.Map{"message": "My name is Logan Winn testing", "timestamp": time.Now().UnixMilli(), "version": version})
 	})
 
 	// Get port from environment (Cloud Run sets this automatically)
