@@ -56,6 +56,10 @@ jobs:
 
     # uses: google-github-actions/auth@v2 to authenticate to Google Cloud using credentials stored in GitHub Secrets.
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Authenticate to Google Cloud
         uses: google-github-actions/auth@v2
         with:
